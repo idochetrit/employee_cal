@@ -29,7 +29,8 @@ ActiveRecord::Schema.define(version: 20131206091242) do
 
   create_table "workmonths", force: true do |t|
     t.string   "name"
-    t.integer  "employeeId"
+    t.integer  "employee_id"
+    t.integer  "month"
     t.integer  "year"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -5,6 +5,8 @@ class EmployeesController < ApplicationController
   # GET /employees.json
   def index
     @employees = Employee.all
+    gon.months_areas = Area.areas_by_months
+    gon.areas = Area.all
   end
 
   # GET /employees/1
