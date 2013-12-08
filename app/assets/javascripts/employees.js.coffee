@@ -18,9 +18,9 @@ ready = ->
       month: i
       monthName: monthName
       areas: gon.months_areas[i-1]
+      
     cal.append template
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
-  
   
