@@ -1,7 +1,7 @@
 <%= include_gon %>
 <h1>Listing employees</h1>
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-4">
     <table class="table">
       <thead>
         <tr>
@@ -25,6 +25,7 @@
             <%= employee.try(:area).try(:name) %></td>
           <!-- <td>
             <%= link_to 'Show', employee %></td> -->
+          <td><%= link_to 'Assign', new_employee_workmonth_path(employee.id) %></td>
           <td>
             <%= link_to 'Edit', edit_employee_path(employee) %></td>
           <td>
@@ -34,9 +35,11 @@
     </table>
     <%= link_to 'New Employee', new_employee_path %>
   </div>
-  <div id="calContent" class="col-md-9 row-fluid">
+  <button class="close-month hide">X</button>
+  <div id="calContent" class="col-md-8 row-fluid">
     
   </div>
+  <div class="full-month hide well"></div>
 </div>
 <br>
 

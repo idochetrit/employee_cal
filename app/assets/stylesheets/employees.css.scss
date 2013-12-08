@@ -1,3 +1,22 @@
 // Place all the styles related to the employees controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.emps-hi {
+  color: #3c763d;
+}
+.emps-md {
+  color: #8a6d3b;
+}
+.emps-lw {
+  color: #a94442;
+}
+
+.circle:before {
+    content: '\25CF';
+    font-size: 14px;
+}
+
+.full-month {
+  position: absolute;
+}

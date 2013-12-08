@@ -1,0 +1,25 @@
+<h1>Listing workmonths</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @workmonths.each do |workmonth| %>
+      <tr>
+        <td><%= link_to 'Show', workmonth %></td>
+        <td><%= link_to 'Edit', edit_workmonth_path(workmonth) %></td>
+        <td><%= link_to 'Destroy', workmonth, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Workmonth', new_workmonth_path %>

@@ -1,0 +1,15 @@
+<h1>{{monthName}}<h1>
+
+<h4>Employees<h4>
+<ul class="list-unstyled">
+{{#each areas}}
+  <li>
+    {{area.name}}
+    <ul class="">
+    {{#each emps}}
+      <li>{{name}}</li>
+    {{/each}}
+    </ul>
+  </li>
+{{/each}}
+</ul>

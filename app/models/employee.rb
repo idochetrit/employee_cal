@@ -1,5 +1,6 @@
 class Employee < ActiveRecord::Base
   belongs_to :area
+  has_many :workmonths
 
   def grade_str
     case self.grade
