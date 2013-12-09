@@ -17,7 +17,7 @@
   </div>
   <div class="form-group">
     <%= f.label :grade %>
-    <%= f.select(:grade, options_for_select([['Low', 0],['Medium', 1],['High', 2]])) %>
+    <%= f.select :grade, options_for_select([['Low', 0],['Medium', 1],['High', 2]], selected: f.object.grade) %>
   </div>
   <div class="form-group">
     <%= f.label :area %>

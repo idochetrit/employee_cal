@@ -13,8 +13,15 @@
 }
 
 .circle:before {
-    content: '\25CF';
-    font-size: 14px;
+  content: '\25CF';
+  font-size: 14px;
+}
+.area-item {
+  font-size: 14px;
+}
+
+.month-preview {
+  padding: 10px !important;
 }
 
 .full-month {
