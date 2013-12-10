@@ -1,7 +1,8 @@
 <%= include_gon %>
-<h1>Listing employees</h1>
+
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4  employees-list hide">
+    <h1>Employees</h1>
     <table class="table">
       <thead>
         <tr>
@@ -36,7 +37,7 @@
     <%= link_to 'New Employee', new_employee_path %>
   </div>
   
-  <div id="calContent" class="col-md-8 row-fluid">
+  <div id="calContent" class="col-md-12 ">
     
   </div>
   <div class="full-month hide well"></div>

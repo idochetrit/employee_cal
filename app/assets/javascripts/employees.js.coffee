@@ -17,6 +17,12 @@ class app
     @fullmonth =  $(".full-month")
     @cal =  $("#calContent")
     @full_month_show =  false
+    Handlebars.registerHelper 'gradeStr', (num)->
+      switch num
+        when 0 then 'Low'
+        when 1 then 'Medium'
+        when 2 then 'High'
+        
     @handle_events()
   
   handle_events: ->
@@ -48,7 +54,7 @@ class app
         'opacity': 0.8
       firstTop = $(".month-preview:first").offset().top
       firstLeft = $(".month-preview:first").offset().left
-      @fullmonth.removeClass('hide')
+      @fullmonth.removeClass('hide').find('.area-tab:first, .area-content:first').addClass 'active'
       @toggle_fullmonth firstLeft, firstTop, @cal.width(), @cal.height(), 250
 
     # click on close
@@ -57,6 +63,11 @@ class app
         @fullmonth.addClass 'hide'
         $('.close-month').addClass 'hide'
         @full_month_show = false
+
+    $('.toggle-employees').on 'click', (e)=> 
+      @cal.toggleClass('col-md-8').toggleClass('col-md-12')
+      $('.employees-list').toggleClass 'hide'
+      e.preventDefault()
 
   toggle_fullmonth: (l, t, w, h, speed, callback= null)->
     @fullmonth.animate
