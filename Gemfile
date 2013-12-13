@@ -28,11 +28,20 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem "nifty-generators", group: [:development]
+
 # gem 'simple_form'
 gem 'gon'
 
 gem 'bootstrap-sass'
 gem 'handlebars_assets'
+gem 'jquery-ui-rails'
+
+
+gem 'angularjs-rails'
+gem 'angular_rails_csrf'
+gem 'momentjs-rails'
+gem 'underscore-rails'
 
 group :development do
   gem 'rails_layout'
@@ -47,10 +56,12 @@ end
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use puma as the app server
-gem 'puma'
+gem 'puma', group: [:production]
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem "mocha", group: :test

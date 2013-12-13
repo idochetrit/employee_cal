@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee_id: 
+  start: 2013-12-13
+  end: 2013-12-13
+
+two:
+  employee_id: 
+  start: 2013-12-13
+  end: 2013-12-13

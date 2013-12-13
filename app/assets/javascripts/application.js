@@ -11,11 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.ui.all
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require handlebars.runtime
-//= require handlebars
+//= require lib/fullcalendar.min
+//= require angular
+//= require lib/angular-dragdrop.min
+//= require angular-resource
+//= require angular-sanitize
 //= require_tree .
-//= require_tree ./templates
+//= require_tree ./controllers
 

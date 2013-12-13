@@ -23,7 +23,7 @@ class WorkmonthsController < ApplicationController
   # GET /workmonths/1/edit
   def edit
   end
-#app.post 'employees/1/workmonths/', {workmonth: {year: 2013, month: 1}, authenticity_token:"UbBY155k1q1OFLPrRRqBNdPCRerszQzvFHzZYWgm/5s=", commit:"Create Assignment", utf8:"✓"}
+  
   # POST /workmonths
   # POST /workmonths.json
   def create

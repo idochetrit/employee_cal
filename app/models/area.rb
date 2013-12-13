@@ -3,11 +3,14 @@ class Area < ActiveRecord::Base
 
   def self.areas_by_months
     res = []
-    12.times do |month_num|
+    (1..12).to_a.each do |month_num|
+      current_month = MonthConcern.new(month_num)
       res << all.map do |a| 
-        emps = Workmonth.employees(month_num+1).select {|e| e.area_id == a.id}
+        emps = current_month.employees_by_area(a)
         { area: a, 
-          emps: emps,
+          emps: emps.as_json,
+          workdays: current_month.workdays,
+          sh_emps_count:  emps.select {|e| e.grade == 3}.size,
           hi_emps_count:  emps.select {|e| e.grade == 2}.size,
           md_emps_count:  emps.select {|e| e.grade == 1}.size,
           lw_emps_count:  emps.select {|e| e.grade == 0}.size

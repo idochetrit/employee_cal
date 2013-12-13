@@ -1,7 +1,7 @@
 <%= include_gon %>
 
-<div class="row">
-  <div class="col-md-4  employees-list hide">
+<div class="row" >
+  <div class="col-md-4 employees-list" ng-show="show_employees">
     <h1>Employees</h1>
     <table class="table">
       <thead>
@@ -37,10 +37,71 @@
     <%= link_to 'New Employee', new_employee_path %>
   </div>
   
-  <div id="calContent" class="col-md-12 ">
-    
-  </div>
-  <div class="full-month hide well"></div>
+  <div id="calContent" ng-class="(show_employees) ? 'col-md-8':'col-md-12'" ng-model="cal" >
+    <div class="innerCalContent" >
+      <div class="well col-md-3 month-preview" data-month="{{month}}" 
+          ng-click="openFullMonth(month)" ng-repeat="month in months">
+          
+          <h3>{{ getMonthName(month) }}</h3>
+          <ul class="list-unstyled">
+            <li ng-repeat="areaItem in getAreaItem(month)">
+              <div class="row-fluid area-item">
+                {{areaItem.area.name}}
+                <i class="emps-hi circle">{{areaItem.hi_emps_count}}</i>,
+                <i class="emps-md circle">{{areaItem.md_emps_count}}</i>,
+                <i class="emps-lw circle">{{areaItem.lw_emps_count}}</i>
+              </div>
+            </li>
+          </ul>
+      </div>
+    </div>
+    <div class="full-month well col-md-12"  ng-animate="{
+    enter:'animated fadeIn',
+    leave:'animated fadeOut'
+  }" ng-show="show_fullmonth" ng-model="fullmonth">
+        
+        <button class="close-month close" ng-show="show_fullmonth" ng-click="closeFullmonth()">x</button>
+        <h1>{{currentAreasItem.monthName}}<h1>
+        <h4>Employees</h4>
+
+
+        <div class="areas-tabs col-md-5">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs ">
+            <li ng-repeat="areaItem in currentAreasItem.areas" class="area-tab">
+              <a href="#{{areaItem.area.id}}" data-toggle="tab">{{areaItem.area.name}}</a>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content ">
+            <div class="tab-pane area-content"  id="{{areaItem.area.id}}" 
+                ng-repeat="areaItem in currentAreasItem.areas">
+              <table class="table">
+                <thead>
+                  <th>Name</th>
+                  <th>Grade</th>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="emp in areaItem.emps" >
+                      <td data-drag="true" jqyoui-draggable="{animate:true}" class="month-employee"  jqyoui-options="{revert: true, revertDuration: 0, zIndex: 999}"  
+                    data-emp-obj="{{ {title: emp.name, employee_id: emp.id} }}">{{emp.name}}</td>
+                      <td>{{emp.grade_str}}</td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-7" id="cal-workdays" ng-model="calWorkdays">
+          
+        </div>
+        
+      </div>
+    </div>
+    <!-- <div ng-include="'/assets/templates/employees/fullmonth.html'"></div> -->
+  
 </div>
 <br>
-

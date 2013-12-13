@@ -1,4 +1,6 @@
 EmployeesCal::Application.routes.draw do
+  resources :workdays
+
   resources :employees do
     resources :workmonths
   end 
