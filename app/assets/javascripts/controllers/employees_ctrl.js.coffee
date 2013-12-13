@@ -33,7 +33,7 @@
       defaultView: 'month'
       month: month-1
       header:
-        left: 'today'
+        left: ''
         center: 'title'
         right: ''
       editable: true,

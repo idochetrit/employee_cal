@@ -21,6 +21,7 @@ test:
 
 production:
   adapter: postgresql
-  database: db/production
+  database: db/development
   pool: 5
-  username: ido
+  username: postgres
+  password: 123123
