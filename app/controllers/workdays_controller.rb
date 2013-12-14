@@ -1,5 +1,5 @@
 class WorkdaysController < ApplicationController
-  respond_to :json, :text
+  respond_to :json
 
   def index
     respond_with Workday.all

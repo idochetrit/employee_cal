@@ -47,6 +47,7 @@
             <li ng-repeat="areaItem in getAreaItem(month)">
               <div class="row-fluid area-item">
                 {{areaItem.area.name}}
+                <i class="emps-sh circle">{{areaItem.sh_emps_count}}</i>,
                 <i class="emps-hi circle">{{areaItem.hi_emps_count}}</i>,
                 <i class="emps-md circle">{{areaItem.md_emps_count}}</i>,
                 <i class="emps-lw circle">{{areaItem.lw_emps_count}}</i>
@@ -85,7 +86,7 @@
                 <tbody>
                   <tr ng-repeat="emp in areaItem.emps" >
                       <td data-drag="true" jqyoui-draggable="{animate:true}" class="month-employee"  jqyoui-options="{revert: true, revertDuration: 0, zIndex: 999}"  
-                    data-emp-obj="{{ {title: emp.name, employee_id: emp.id} }}">{{emp.name}}</td>
+                    data-emp-obj="{{ {title: emp.name+' - '+areaItem.area.name, employee_id: emp.id, className: 'g'+emp.grade+'-event'} }}">{{emp.name}}</td>
                       <td>{{emp.grade_str}}</td>
                     
                   </tr>

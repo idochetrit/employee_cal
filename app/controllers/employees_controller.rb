@@ -6,7 +6,7 @@ class EmployeesController < ApplicationController
   def index
     @employees = Employee.all
     gon.months_areas = Area.areas_by_months
-    # gon.areas = Area.all
+    gon.months_workdays = Workday.months_workdays
   end
 
   # GET /employees/1

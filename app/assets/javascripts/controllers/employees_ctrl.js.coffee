@@ -14,11 +14,18 @@
     $scope.show_employees = false
     $scope.months = [1..12]
     $scope.areas = gon.months_areas
+    $scope.workdays = gon.months_workdays
 
-  $scope.toggleEmployeesList = ()-> $scope.show_employees = !$scope.show_employees
-  $scope.closeFullmonth = ()-> $scope.show_fullmonth = false  
-  $scope.getAreaItem = (month)-> $scope.areas[month-1]
+  $scope.toggleEmployeesList = ()-> 
+    $scope.show_employees = !$scope.show_employees
+    $scope.rerenderCal()
+  $scope.closeFullmonth = ()-> $scope.show_fullmonth = false 
   $scope.getMonthName = (month)-> (new Date(0,month,0)).getMonthName()
+  $scope.getAreaItem = (month)-> $scope.areas[month-1]
+  $scope.rerenderCal = ()-> 
+    setTimeout(()-> 
+        $('#cal-workdays').fullCalendar('render')
+      , 20)
 
   $scope.openFullMonth = (month)->
     if $scope.show_fullmonth then return
@@ -26,7 +33,7 @@
     $scope.currentAreasItem = 
       month: month
       monthName: monthName
-      areas: $scope.getAreaItem month
+      areas: $scope.getAreaItem(month)
     $scope.show_fullmonth = true
 
     $('#cal-workdays').html('').fullCalendar
@@ -36,24 +43,31 @@
         left: ''
         center: 'title'
         right: ''
-      editable: true,
-      droppable: true, 
+      events: $scope.workdays[month-1].workdays
+      droppable: true
       drop: (date, allDay)->
       
         originalEventObject = $(this).data('emp-obj');
         copiedEventObject = $.extend({}, originalEventObject);
-        
         copiedEventObject.start = date
         copiedEventObject.allDay = allDay
-        $('#cal-workdays').fullCalendar('renderEvent', copiedEventObject, true);
         
-        Workday.save
-          workday:
-            employee_id: originalEventObject.employee_id
-            start: date
-            end: date
+
+        existEvents = $('#cal-workdays').fullCalendar 'clientEvents', (e)->
+          if date.getDate() == e.start.getDate() and e.employee_id == originalEventObject.employee_id
+            return true
+          
+        if existEvents.length == 0
+          $('#cal-workdays').fullCalendar('renderEvent', copiedEventObject, true);
         
-    setTimeout(()-> 
-        $('#cal-workdays').fullCalendar('render')
-      , 20)
+          serverDate = new Date(date.getYear()+1900,date.getMonth(),date.getDate()+1)
+          Workday.save
+            workday:
+              id: originalEventObject.id
+              employee_id: originalEventObject.employee_id
+              start: serverDate
+              end: serverDate
+    
+    $scope.rerenderCal()
+    
 

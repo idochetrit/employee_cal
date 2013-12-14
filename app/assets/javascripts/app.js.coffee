@@ -11,11 +11,18 @@ Date.prototype.monthNames = [
 Date.prototype.getMonthName = ->
   return this.monthNames[this.getMonth()];
 
-@app = angular.module 'EmployeesCal', ['ngResource','ngSanitize','ngDragDrop']
+# $httpProvider.defaults.headers.common["Content-Type"] = 'application/json'
 
+@app = angular.module 'EmployeesCal', ['ngResource','ngSanitize','ngDragDrop']
 @app.factory "Workday", ($resource) ->
-  $resource("/workdays/:id", {id: "@id"}, {update: {method: "PUT"}})
+  $resource "/workdays/:id.json",
+    {id: "@id"}
+    update: 
+      method: "PUT"
 
 @app.factory "Employee", ($resource) ->
-  $resource("/employees/:id", {id: "@id"}, {update: {method: "PUT"}})
+  $resource "/employees/:id",
+    {id: "@id"}
+    update: 
+      method: "PUT"    
 
