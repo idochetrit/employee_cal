@@ -1,0 +1,1 @@
+@app.controller 'FullMonthCalendar', ($scope) ->

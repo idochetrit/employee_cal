@@ -1,8 +1,10 @@
 class Workday < ActiveRecord::Base
   belongs_to :employee
 
+  delegate :area_id, to: :employee
+
   def title
-    "#{self.employee.name} - #{self.employee.area.name}"
+    "#{self.employee.name} - #{self.employee.area.name} x"
   end
 
   def className
@@ -18,11 +20,8 @@ class Workday < ActiveRecord::Base
     res
   end
 
-  # def as_json
-  #   super[:start] = super[:start].strptime "%Y/%M/%D"
-  # end
-
-  def attributes
-    super.merge(title: self.title, className: self.className)
+  def as_json(options = {})
+    super({except: [:id]}).merge({title: self.title, 
+      className: self.className, area_id: self.area_id, wd_id: self.id})
   end
 end

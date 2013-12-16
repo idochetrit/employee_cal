@@ -12,7 +12,7 @@ class Employee < ActiveRecord::Base
     end
   end
 
-  def attributes
-    super.merge(grade_str: self.grade_str)
+  def as_json(options = {})
+    super(options).merge(grade_str: self.grade_str)
   end
 end

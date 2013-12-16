@@ -14,6 +14,11 @@ class MonthConcern
   end
 
   def workdays
-    Workday.where('extract(month from start) = ?', @month)
+    @workdays ||= Workday.where('extract(month from start) = ?', @month)
+  end
+
+
+  def workdays_by_area(a)
+    workdays.select {|wd| wd.area_id == a.id}
   end
 end

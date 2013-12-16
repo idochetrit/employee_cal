@@ -1,20 +1,12 @@
 @app.controller 'EmployeesCtrl', ($scope, Workday) ->
 
-  $scope.insertToCal = ()->
-    for i in [1..12]
-      monthName = new Date(0,i,0).getMonthName()
-      template = HandlebarsTemplates['month_item']
-        month: i
-        monthName: monthName
-        areas: gon.months_areas[i-1]
-        
-      $scope.calContent += template
+  
   $scope.init = ()->
     $scope.show_fullmonth = false
     $scope.show_employees = false
     $scope.months = [1..12]
+    $scope.currentWorkdays = []
     $scope.areas = gon.months_areas
-    $scope.workdays = gon.months_workdays
 
   $scope.toggleEmployeesList = ()-> 
     $scope.show_employees = !$scope.show_employees
@@ -27,6 +19,11 @@
         $('#cal-workdays').fullCalendar('render')
       , 20)
 
+  $scope.changeArea = (areaItem)->
+    $scope.currentWorkdays = areaItem.workdays
+    $('#cal-workdays').fullCalendar("refetchEvents")
+    return
+
   $scope.openFullMonth = (month)->
     if $scope.show_fullmonth then return
     monthName = new Date(0,month,0).getMonthName()
@@ -35,20 +32,26 @@
       monthName: monthName
       areas: $scope.getAreaItem(month)
     $scope.show_fullmonth = true
-
+    
     $('#cal-workdays').html('').fullCalendar
       defaultView: 'month'
       month: month-1
       header:
         left: ''
-        center: 'title'
+        center: ''
         right: ''
-      events: $scope.workdays[month-1].workdays
+      events: (start, end, callback)-> callback($scope.currentWorkdays)
       droppable: true
+      eventClick: (calEvent, jsEvent, view)->
+        cal = $('#cal-workdays').fullCalendar('removeEvents', calEvent._id)
+        Workday.delete({id: calEvent.wd_id})
+        cal.fullCalendar("rerenderEvents")
+        alert("Workday removed!")
       drop: (date, allDay)->
       
         originalEventObject = $(this).data('emp-obj');
         copiedEventObject = $.extend({}, originalEventObject);
+
         copiedEventObject.start = date
         copiedEventObject.allDay = allDay
         
@@ -58,15 +61,18 @@
             return true
           
         if existEvents.length == 0
-          $('#cal-workdays').fullCalendar('renderEvent', copiedEventObject, true);
+          # $('#cal-workdays').fullCalendar('renderEvent', copiedEventObject, true);
         
           serverDate = new Date(date.getYear()+1900,date.getMonth(),date.getDate()+1)
           Workday.save
             workday:
-              id: originalEventObject.id
+              id: originalEventObject.wd_id
               employee_id: originalEventObject.employee_id
               start: serverDate
               end: serverDate
+            , (wd)-> 
+              $scope.currentWorkdays.push(wd)
+              $('#cal-workdays').fullCalendar("refetchEvents")
     
     $scope.rerenderCal()
     
