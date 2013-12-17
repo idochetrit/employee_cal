@@ -1,7 +1,7 @@
 class Employee < ActiveRecord::Base
   belongs_to :area
-  has_many :workmonths
-  has_many :workdays
+  has_many :workmonths, dependent: :destroy
+  has_many :workdays, dependent: :destroy
 
   def grade_str
     case self.grade
