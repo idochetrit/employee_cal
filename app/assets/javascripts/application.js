@@ -14,11 +14,12 @@
 //= require jquery.ui.all
 //= require jquery_ujs
 //= require bootstrap
-//= require lib/fullcalendar.min
 //= require angular
-//= require lib/angular-dragdrop.min
+//= require angular-route
 //= require angular-resource
 //= require angular-sanitize
+//= require_tree ./lib
 //= require_tree .
+//= require_tree ./services
 //= require_tree ./controllers
 

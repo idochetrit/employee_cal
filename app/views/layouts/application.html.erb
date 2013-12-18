@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="EmployeesCal">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Employees Cal" %></title>
@@ -8,13 +8,15 @@
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
-  <body ng-app="EmployeesCal" ng-controller="EmployeesCtrl" ng-init="init()">
+  <body>
     <header>
       <%= render 'layouts/navigation' %>
     </header>
     <main role="main">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
+      <%= render 'layouts/messages' %>
+      <div ng-view>
+        <%= yield %>
+      </div>
     </main>
   </body>
 </html>

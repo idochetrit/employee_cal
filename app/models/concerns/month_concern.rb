@@ -6,7 +6,7 @@ class MonthConcern
   end
 
   def employees(klass = Workmonth)
-    @employees ||= Employee.where(id: klass.where(month: @month).pluck(:employee_id))
+    @employees ||= Employee.where(id: klass.no_vacation.where(month: @month).pluck(:employee_id))
   end
 
   def employees_by_area(a)

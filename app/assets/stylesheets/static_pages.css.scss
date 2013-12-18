@@ -35,6 +35,16 @@
   z-index: 222;
 }
 
+.close-employees {
+  position: absolute;
+  left: 3px;
+  z-index: 55;
+}
+
+.title {
+  text-align: center;
+}
+
 #cal-workdays {
   top: -50px;
   display: block;

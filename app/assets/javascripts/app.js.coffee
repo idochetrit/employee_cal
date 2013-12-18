@@ -13,16 +13,11 @@ Date.prototype.getMonthName = ->
 
 # $httpProvider.defaults.headers.common["Content-Type"] = 'application/json'
 
-@app = angular.module 'EmployeesCal', ['ngResource','ngSanitize','ngDragDrop']
-@app.factory "Workday", ($resource) ->
-  $resource "/workdays/:id.json",
-    {id: "@id"}
-    update: 
-      method: "PUT"
+@app = angular.module 'EmployeesCal', ['ngRoute','ngResource','ngSanitize','ngDragDrop']
 
-@app.factory "Employee", ($resource) ->
-  $resource "/employees/:id",
-    {id: "@id"}
-    update: 
-      method: "PUT"    
 
+@app.config ["$routeProvider", ($routeProvider) ->
+  $routeProvider.otherwise
+    templateUrl: '/assets/home.html'
+    controller: 'EmployeesCtrl'
+]

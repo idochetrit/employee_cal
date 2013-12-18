@@ -1,0 +1,45 @@
+<div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Employee Form</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" ng-submit="saveNewEmployee()" >
+          <input type="hidden" name="id" value="{{newEmployee.id}}" ng-model="newEmployee.id">
+          <div class="form-group">
+            <input type="text" class="form-control" name="name" ng-model="newEmployee.name" placeholder="Enter name" required>
+          </div>
+          <div class="form-group">
+            <label for="area">Choose area:</label>
+            <select class="form-control" name="name" ng-model="newEmployee.area_id" required>
+              <option ng-repeat="a in areas" value="{{a.id}}">{{a.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="grade">Choose grade:</label>
+            <select class="form-control" name="name" ng-model="newEmployee.grade" required>
+              <option ng-repeat="g in grades" value="{{g.id}}">{{g.name}}</option>
+            </select>
+          </div>
+          <div class="only-new" ng-show="newEmployeeMethod=='save'">
+            <div class="form-group">
+              <label for="grade">Choose from month:</label>
+              <input type="number" max-length="2" min="1" max="12" class="form-control" name="from" ng-model="newEmployeeWM.from" required />
+            </div>            
+            <div class="form-group">
+              <label for="grade">Choose to month:</label>
+              <input type="number" max-length="2" min="1" max="12" class="form-control" name="to" ng-model="newEmployeeWM.to" required />
+            </div>
+          </div>
+          <input type="submit" class="btn btn-primary" value="Save" ng-submit="saveNewEmployee()"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -11,15 +11,6 @@ class Workday < ActiveRecord::Base
     "g#{self.employee.grade}-event"
   end
 
-  def self.months_workdays
-    res = []
-    (1..12).to_a.each do |month|
-      current_month = MonthConcern.new(month)
-      res << {workdays: current_month.workdays} 
-    end
-    res
-  end
-
   def as_json(options = {})
     super({except: [:id]}).merge({title: self.title, 
       className: self.className, area_id: self.area_id, wd_id: self.id})

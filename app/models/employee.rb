@@ -3,6 +3,8 @@ class Employee < ActiveRecord::Base
   has_many :workmonths, dependent: :destroy
   has_many :workdays, dependent: :destroy
 
+  validates :name, :area_id, :grade, presence: true
+
   def grade_str
     case self.grade
       when 0 then 'Low (> 500)'
@@ -13,6 +15,6 @@ class Employee < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options).merge(grade_str: self.grade_str)
+    super(options).merge(grade_str: self.grade_str, area_name: self.area.name)
   end
 end
