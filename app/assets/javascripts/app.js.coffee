@@ -18,6 +18,6 @@ Date.prototype.getMonthName = ->
 
 @app.config ["$routeProvider", ($routeProvider) ->
   $routeProvider.otherwise
-    templateUrl: '/assets/home.html'
+    templateUrl: '/templates/home.html'
     controller: 'EmployeesCtrl'
 ]

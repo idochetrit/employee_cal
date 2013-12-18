@@ -1,8 +1,12 @@
-@app.controller 'FullMonthCalendar', ($scope, Workday) ->
-  $scope.init = ()->
+@app.controller 'FullmonthCtrl', ($scope, Workday) ->
+  $scope.rerenderCal = ()-> 
+    setTimeout(()-> 
+        $('#cal-workdays').fullCalendar('render')
+      , 20)
+  $scope.$on 'fullmonthOpen', ()->
     $('#cal-workdays').html('').fullCalendar
       defaultView: 'month'
-      month: month-1
+      month: $scope.$parent.currentAreasItem.month-1
       header:
         left: ''
         center: ''
@@ -40,5 +44,5 @@
             , (wd)-> 
               $scope.currentWorkdays.push(wd)
               $('#cal-workdays').fullCalendar("refetchEvents")
-    $scope.$parent.rerenderCal()
+    $scope.rerenderCal()
     

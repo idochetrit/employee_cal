@@ -88,6 +88,7 @@
       monthName: monthName
       areas_months: $scope.getAreaItem(month)
     $scope.show_fullmonth = true
+    $scope.$broadcast('fullmonthOpen',$scope.currentAreasItem)
 
     
     
