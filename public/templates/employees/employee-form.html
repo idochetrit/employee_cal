@@ -23,7 +23,7 @@
               <option ng-repeat="g in grades" value="{{g.id}}">{{g.name}}</option>
             </select>
           </div>
-          <div class="only-new" ng-show="newEmployeeMethod=='save'">
+          <div class="only-new" ng-if="newEmployeeMethod=='save'">
             <div class="form-group">
               <label for="grade">Choose from month:</label>
               <input type="number" max-length="2" min="1" max="12" class="form-control" name="from" ng-model="newEmployeeWM.from" required />

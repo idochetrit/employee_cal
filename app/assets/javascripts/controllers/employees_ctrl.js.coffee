@@ -3,6 +3,7 @@
     $scope.newEmployee = {}
     $scope.newEmployeeWM = {}
     $scope.currentWorkdays = []
+    $scope.areas = []
 
     $scope.employees = Employee.query()
     $scope.areas = Area.query()
