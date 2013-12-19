@@ -15,6 +15,11 @@
   color: #a94442;
 }
 
+.employee-table {
+  overflow-y: auto;
+  height: 700px;
+}
+
 .circle:before {
   content: '\25CF';
   font-size: 1.1em;

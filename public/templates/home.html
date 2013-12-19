@@ -1,44 +1,43 @@
-
-<button ng-click="toggleEmployeesList()" class="btn btn-default pull-left close-employees">
-  <i class="glyphicon glyphicon-list"></i>
+<button ng-click="toggleEmployeesList()" class="btn btn-default pull-left close-employees"> <i class="glyphicon glyphicon-list"></i>
 </button>
 <div class="row-fluid" >
   <div class="col-md-4 employees-list" ng-show="show_employees">
-    
+
     <h1 class="title">Employees</h1>
     <input type="search" ng-model="filter.query" class="form-control" 
       placeholder="Enter to search..." />
+    <div class="employee-table">
 
-    <table class="table sortable-theme-bootstrap tablesorter " >
-      <thead>
-        <tr>
-          <th data-sort="string">Name</th>
-          <th data-sort="string">Grade</th>
-          <th data-sort="string">Area</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
+      <table class="table sortable-theme-bootstrap tablesorter " >
+        <thead>
+          <tr>
+            <th data-sort="string">Name</th>
+            <th data-sort="int">Grade</th>
+            <th data-sort="string">Area</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr ng-repeat="employee in employees | filter:filter.query">
-          <td>{{ employee.name }}</td>
-          <td>{{ employee.grade_str }}</td>
-          <td>{{ employee.area_name }}</td>
-          <td>
-            <button type="button" ng-click="editEmployee(employee)" 
-                data-toggle="modal" data-target="#employeeModal">
-              <i class="glyphicon glyphicon-edit"></i>
-            </button>
-          </td>
-          <td>
-            <button type="button" ng-click="deleteEmployee(employee)">
-              <i class="glyphicon glyphicon-trash"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <tbody>
+          <tr ng-repeat="employee in employees | filter:filter.query">
+            <td>{{ employee.name }}</td>
+            <td data-sort-value="{{employee.grade}}">{{ employee.grade_str }}</td>
+            <td>{{ employee.area_name }}</td>
+            <td>
+              <button type="button" ng-click="editEmployee(employee)" 
+                data-toggle="modal" data-target="#employeeModal"> <i class="glyphicon glyphicon-edit"></i>
+              </button>
+            </td>
+            <td>
+              <button type="button" ng-click="deleteEmployee(employee)">
+                <i class="glyphicon glyphicon-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <!-- Button trigger employee modal -->
     <button class="btn btn-primary btn-lg" ng-click="newEmployeeMethod='save'"
       data-toggle="modal" data-target="#employeeModal">Add</button>
@@ -51,7 +50,7 @@
                 ng-click="openFullMonth(month)" ng-repeat="month in months">
 
         <div ng-include="'/templates/includes/month-item.html'"></div>
-        
+
       </div>
     </div>
     <div ng-include="'/templates/includes/fullmonth.html'"></div>
