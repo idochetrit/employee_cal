@@ -1,4 +1,4 @@
-@app.controller 'FullmonthCtrl', ($scope, Workday) ->
+@app.controller 'FullmonthCtrl',["$scope", "Workday", ($scope, Workday) ->
   $scope.rerenderCal = ()-> 
     setTimeout(()-> 
         $('#cal-workdays').fullCalendar('render')
@@ -45,4 +45,4 @@
               $scope.currentWorkdays.push(wd)
               $('#cal-workdays').fullCalendar("refetchEvents")
     $scope.rerenderCal()
-    
+]
