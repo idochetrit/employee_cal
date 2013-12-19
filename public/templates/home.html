@@ -9,12 +9,12 @@
     <input type="search" ng-model="filter.query" class="form-control" 
       placeholder="Enter to search..." />
 
-    <table class="table sortable-theme-bootstrap" data-sortable="true">
+    <table class="table sortable-theme-bootstrap tablesorter " >
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Grade</th>
-          <th>Area</th>
+          <th data-sort="string">Name</th>
+          <th data-sort="string">Grade</th>
+          <th data-sort="string">Area</th>
           <th></th>
           <th></th>
         </tr>
@@ -22,7 +22,7 @@
 
       <tbody>
         <tr ng-repeat="employee in employees | filter:filter.query">
-          <td data-value>{{ employee.name }}</td>
+          <td>{{ employee.name }}</td>
           <td>{{ employee.grade_str }}</td>
           <td>{{ employee.area_name }}</td>
           <td>

@@ -3,7 +3,7 @@
     $scope.newEmployee = {}
     $scope.newEmployeeWM = {}
     $scope.currentWorkdays = []
-    $scope.areas = []
+    $scope.areas_months = []
 
     $scope.employees = Employee.query()
     $scope.areas = Area.query()
@@ -12,7 +12,7 @@
     $scope.show_employees = true
     $scope.show_fullmonth = false
 
-    Sortable.init()
+    $(".employees-list table").stupidtable()
     
     
     updateCalendar = ()->
