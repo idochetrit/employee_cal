@@ -1,5 +1,30 @@
-<div class="popover fade right in" >
-  <div class="arrow"></div>
-  <h3 class="popover-title">A Title</h3>
-  <div class="popover-content">And here's some amazing content. It's very engaging. right?</div>
-</div>
+<div class="modal fade" id="vacationModal" 
+    tabindex="-1" role="dialog" aria-labelledby="lbl" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add Vacation</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="startVac" >Start from:</label>
+            <input type="text" name="startVac" id="startVac"  data-date-format="dd/mm/yyyy" bs-datepicker
+              ng-model="newVacation.start" class="form-control">   
+          </div>
+          <div class="form-group">
+            <label for="endVac" >Ends:</label>
+            <input type="text" name="endVac" id="endVac" data-date-format="dd/mm/yyyy" bs-datepicker
+              ng-model="newVacation.end" class="form-control">   
+          </div>
+          <a type="submit" href="#" ng-click="addNewVacation()" 
+           class="btn btn-default pull-right" >Add</a>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

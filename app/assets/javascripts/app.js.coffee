@@ -13,7 +13,7 @@ Date.prototype.getMonthName = ->
 
 # $httpProvider.defaults.headers.common["Content-Type"] = 'application/json'
 
-@app = angular.module 'EmployeesCal', ['ngRoute','ngResource','ngSanitize','ngDragDrop']
+@app = angular.module 'EmployeesCal', ['ngRoute','ngResource','ngSanitize','ngDragDrop', '$strap.directives']
 
 
 @app.config ["$routeProvider", ($routeProvider) ->

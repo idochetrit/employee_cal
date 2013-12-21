@@ -11,9 +11,15 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.ui.all
+//= require jquery.ui.core
+//= require jquery.ui.widget
+//= require jquery.ui.mouse
+//= require jquery.ui.position
+//= require jquery.ui.draggable
+//= require jquery.ui.droppable
 //= require jquery_ujs
 //= require bootstrap
+//= require underscore
 //= require angular
 //= require angular-route
 //= require angular-resource
@@ -21,5 +27,6 @@
 //= require_tree ./lib
 //= require_tree .
 //= require_tree ./services
+//= require_tree ./filters
 //= require_tree ./controllers
 
