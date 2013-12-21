@@ -15,7 +15,6 @@ Date.prototype.getMonthName = ->
 
 @app = angular.module 'EmployeesCal', ['ngRoute','ngResource','ngSanitize','ngDragDrop', '$strap.directives']
 
-
 @app.config ["$routeProvider", ($routeProvider) ->
   $routeProvider.otherwise
     templateUrl: '/templates/home.html'

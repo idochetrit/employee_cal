@@ -1,17 +1,25 @@
-@app.controller 'FullmonthCtrl',["$scope", "Workday", ($scope, Workday) ->
+@app.controller 'FullmonthCtrl',["$scope", "Month", "Workday", ($scope, Month, Workday) ->
+
   $scope.rerenderCal = ()-> 
     setTimeout(()-> 
         $('#cal-workdays').fullCalendar('render')
       , 20)
-  $scope.$on 'fullmonthOpen', ()->
+
+  $scope.changeArea = (areaItem)->
+    $scope.currentAreaItem = areaItem
+    $('#cal-workdays').fullCalendar("refetchEvents")
+    return
+
+  prepareFullmonth = (areaItems)->
+    $scope.areaItems = areaItems
     $('#cal-workdays').html('').fullCalendar
       defaultView: 'month'
-      month: $scope.$parent.currentAreasItem.month-1
+      month: $scope.month-1
       header:
         left: ''
         center: ''
         right: ''
-      events: (start, end, callback)-> callback($scope.$parent.currentWorkdays)
+      events: (start, end, callback)-> callback($scope.currentAreaItem.workdays)
       droppable: true
       eventClick: (calEvent, jsEvent, view)->
         cal = $('#cal-workdays').fullCalendar('removeEvents', calEvent._id)
@@ -42,7 +50,17 @@
               start: serverDate
               end: serverDate
             , (wd)-> 
-              $scope.currentWorkdays.push(wd)
+              $scope.currentAreaItem.workdays.push(wd)
               $('#cal-workdays').fullCalendar("refetchEvents")
     $scope.rerenderCal()
+    
+
+  $scope.$on 'fullmonthOpen', (e, currentSelectedMonth)->
+    $scope.month = currentSelectedMonth.month
+    $scope.monthName = currentSelectedMonth.monthName
+    Month.get
+      id: $scope.month
+      ,(aItem)-> prepareFullmonth(aItem.areaItems)
+
+
 ]

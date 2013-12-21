@@ -6,21 +6,22 @@
   ng-controller="FullmonthCtrl" ng-init="init()">
 
   <button class="close-month close" ng-show="show_fullmonth" ng-click="closeFullmonth()">x</button>
-  <h1>{{currentAreasItem.monthName}}</h1>
+  <h1>{{monthName}}</h1>
   <h4>Employees</h4>
 
   <div class="areas_months-tabs col-md-5">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs ">
-      <li ng-repeat="areaItem in currentAreasItem.areas_months" class="area-tab">
-        <a data-target="#{{areaItem.area.id}}" ng-click="changeArea(areaItem)" data-toggle="tab">{{areaItem.area.name}}</a>
+      <li ng-repeat="areaItem in areaItems" class="area-tab">
+        <a data-target="#{{areaItem.area.id}}" ng-click="changeArea(areaItem)" data-toggle="tab">
+        {{areaItem.area.name}}</a>
       </li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content ">
       <div class="tab-pane area-content"  id="{{areaItem.area.id}}" 
-                ng-repeat="areaItem in currentAreasItem.areas_months">
+                ng-repeat="areaItem in areaItems">
         <table class="table">
           <thead>
             <th>Name</th>

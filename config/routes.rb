@@ -1,6 +1,6 @@
 EmployeesCal::Application.routes.draw do
-  get 'months/index'
-  get 'months/show'
+  get 'months/:id', to: 'months#show'
+  get 'months', to: 'months#index'
 
   get "static_pages/index"
   get "static_pages/login"

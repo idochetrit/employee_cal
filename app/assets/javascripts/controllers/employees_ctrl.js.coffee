@@ -1,11 +1,10 @@
-@app.controller 'EmployeesCtrl', ["$scope", "$http", "Area", "Employee", "Workmonth","Vacation"
-  ($scope, $http, Area, Employee, Workmonth, Vacation) ->
+@app.controller 'EmployeesCtrl', ["$scope", "$http", "Area", "Employee", "Workmonth","Vacation", "Month"
+  ($scope, $http, Area, Employee, Workmonth, Vacation, Month) ->
     $scope.newEmployee = {}
     $scope.newEmployeeWM = {}
     $scope.newVacation = {}
     $scope.current_employee_id
 
-    $scope.currentWorkdays = []
     $scope.areas_months = []
 
     $scope.employees = Employee.query()
@@ -16,13 +15,14 @@
     $scope.show_fullmonth = false
 
 
-
+    $http.defaults.headers.post["Content-Type"] = "application/json";
     angular.element(document).ready ()->
       $(".employees-list table").stupidtable()
     
     updateCalendar = ()->
-      $http.get('/months/index.json').success (json)-> 
-        $scope.areas_months = json
+      Month.query (areaItems_months)->
+        $scope.areas_months = areaItems_months
+
     updateEmpList = ()->
       $scope.employees = Employee.query()
 
@@ -71,11 +71,12 @@
       $scope.current_employee_id = id
 
     addVacationModel = (wm_start, wm_end, m)->
-      Vacation.save
+      Vacation.save(
         month: m
         employee_id: $scope.current_employee_id 
         start_vacation: wm_start
         end_vacation: wm_end
+      ).$promise.then -> updateCalendar()
 
     $scope.addNewVacation = ()->
       wm_start = $scope.newVacation.start.getMonth() + 1
@@ -86,6 +87,7 @@
         addVacationModel($scope.newVacation.start, $scope.newVacation.end, wm_start)
         addVacationModel($scope.newVacation.start, $scope.newVacation.end, wm_end)
       $scope.newVacation = {}
+
       $("#vacationModal").modal('hide')
       return
 
@@ -111,21 +113,14 @@
 
     $scope.closeFullmonth = ()-> $scope.show_fullmonth = false 
     $scope.getMonthName = (month)-> (new Date(0,month,0)).getMonthName()
-    $scope.getAreaItem = (month)-> $scope.areas_months[month-1]
-
-
-    $scope.changeArea = (areaItem)->
-      $scope.currentWorkdays = areaItem.workdays
-      $('#cal-workdays').fullCalendar("refetchEvents")
-      return
+    $scope.getAreaItem = (month)-> $scope.areas_months[month-1].areaItems
 
     $scope.openFullMonth = (month)->
       if $scope.show_fullmonth then return
       monthName = new Date(0,month,0).getMonthName()
-      $scope.currentAreasItem = 
+      $scope.currentMonthSelected = 
         month: month
         monthName: monthName
-        areas_months: $scope.getAreaItem(month)
       $scope.show_fullmonth = true
-      $scope.$broadcast('fullmonthOpen',$scope.currentAreasItem)
+      $scope.$broadcast('fullmonthOpen',$scope.currentMonthSelected)
 ]
