@@ -4,7 +4,7 @@ class Workmonth < ActiveRecord::Base
 
 
 
-  scope :vacation, ->(vac = true){ where(vacation: vac) }
+  scope :vacation, ->(vac){ where(vacation: vac) unless vac.nil? }
 
   def self.employees(month)
     Employee.where(id: where(month: month).pluck(:employee_id))  

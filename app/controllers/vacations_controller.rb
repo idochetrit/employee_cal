@@ -1,6 +1,7 @@
 class VacationsController < ApplicationController
   respond_to :json
 
+  # TODO implement on client vacations list
   def index
     @employee = Employee.find params[:employee_id]
     wm = @employee.workmonths.vacation
@@ -27,6 +28,7 @@ class VacationsController < ApplicationController
   def update
   end
 
+  # TODO implement on client delete a vacation
   def destroy
     @employee = Employee.find params[:employee_id]
     wm = @employee.workmonths.where({month: params[:month]}).first

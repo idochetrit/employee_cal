@@ -39,9 +39,11 @@
           (wm)-> updateCalendar() if m == end
 
     $scope.deleteEmployee = (employee, index) -> 
-      employee.$delete ->
-        $scope.employees.splice(index, 1)
-        updateCalendar()
+      msg = "Are you sure?"
+      if confirm(msg)
+        employee.$delete ->
+          $scope.employees.splice(index, 1)
+          updateCalendar()
 
     $scope.editEmployee = (employee) ->
       $scope.newEmployeeMethod = 'update'
@@ -51,7 +53,7 @@
       $scope.newEmployeeMethod = 'update' if $scope.newEmployeeMethod == 'update'
       
       Employee[$scope.newEmployeeMethod](id: $scope.newEmployee.id, employee: $scope.newEmployee)
-      .$promise.then (o)->
+      .success (o)->
         if $scope.newEmployeeMethod == 'save'
           saveWM($scope.newEmployeeWM, o.id)
           $scope.employees.push o
@@ -67,6 +69,7 @@
       #CLOSE modal
       $("#employeeModal").modal('hide')
       return
+      
     $scope.setTempEmpId = (id) ->
       $scope.current_employee_id = id
 
@@ -113,7 +116,8 @@
 
     $scope.closeFullmonth = ()-> $scope.show_fullmonth = false 
     $scope.getMonthName = (month)-> (new Date(0,month,0)).getMonthName()
-    $scope.getAreaItem = (month)-> $scope.areas_months[month-1].areaItems
+    $scope.getAreaItem = (month)-> 
+      $scope.areas_months[month-1].areaItems if $scope.areas_months[month-1]
 
     $scope.openFullMonth = (month)->
       if $scope.show_fullmonth then return

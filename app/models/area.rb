@@ -13,7 +13,7 @@ class Area < ActiveRecord::Base
   def self.areaItem_by_month(month, deep = false)
     current_month = MonthConcern.new(month)
     return { areaItems: all.map do |a| 
-      emps = current_month.employees_by_area(a)
+      emps = current_month.employees_by_area(a, deep ? nil : false)
       hash = { area: a, 
         sh_emps_count:  emps.select {|e| e.grade == 3}.size,
         hi_emps_count:  emps.select {|e| e.grade == 2}.size,
@@ -21,7 +21,11 @@ class Area < ActiveRecord::Base
         lw_emps_count:  emps.select {|e| e.grade == 0}.size
       }
       if deep
-        hash.merge!({ emps: emps.as_json, workdays: current_month.workdays_by_area(a) })
+        hash.merge!({ 
+          emps: emps.as_json, 
+          workdays: current_month.workdays_by_area(a),
+          vacations: current_month.vacations
+        })
       end
       hash
     end}

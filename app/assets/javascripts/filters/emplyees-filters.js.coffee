@@ -7,3 +7,11 @@
     ]
   (input)->
     _.where(grades, {id: +input})[0].name
+
+@app.filter 'vacation', () ->
+  (input)->
+    e_id = input[0]
+    vacs = input[1]
+    vac = _.where(vacs,{employee_id: e_id})[0]
+    if vac then "(#{vac.start}) to (#{vac.end})"  else ''
+    

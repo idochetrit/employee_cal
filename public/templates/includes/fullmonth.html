@@ -26,6 +26,7 @@
           <thead>
             <th>Name</th>
             <th>Grade</th>
+            <th>Vac?</th>
           </thead>
           <tbody>
             <tr ng-repeat="emp in areaItem.emps" >
@@ -36,7 +37,7 @@
                       className: 'g'+emp.grade+'-event',
                       area_id: areaItem.area.id} }}">{{emp.name}}</td>
               <td>{{emp.grade_str}}</td>
-
+              <td class="vacation">{{ [emp.id,areaItem.vacations] | vacation  }}</td>
             </tr>
           </tbody>
         </table>
