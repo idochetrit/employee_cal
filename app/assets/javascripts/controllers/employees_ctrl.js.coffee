@@ -1,7 +1,15 @@
 @app.controller 'EmployeesCtrl', ["$scope", "$http", "Area", "Employee", "Workmonth","Vacation", "Month"
   ($scope, $http, Area, Employee, Workmonth, Vacation, Month) ->
     $scope.newEmployee = {}
-    $scope.newEmployeeWM = {}
+    $scope.newEmployeeWM = {from: 1, to: 12}
+
+    $scope.monthMin = 1
+    $scope.monthMax = 12
+    $scope.newEmployeeWM_min = $scope.monthMin
+    $scope.newEmployeeWM_max = $scope.monthMax
+    
+
+
     $scope.newVacation = {}
     $scope.current_employee_id
 
@@ -37,20 +45,17 @@
     updateEmpList = ()->
       $scope.employees = Employee.query()
 
-    saveWM = (wmItem, emp_id)->
-      start = Math.min(wmItem.from, wmItem.to)
-      end = Math.max(wmItem.from, wmItem.to)
-      for m in [start..end]
-        console.log "workmonth: #{m}, for: #{emp_id}"
-        Workmonth.save
-          workmonth: 
-            month: m
-            employee_id: emp_id
-          ,
-          (wm)-> 
-            if m  == end-1
-              updateCalendar()
-              $scope.$apply() if not $scope.$$phase
+    saveWM = (min, max, emp_id)->
+      Workmonth.save
+        workmonth:
+          month_start: min
+          month_end: max
+          employee_id: emp_id
+        ,
+        (wm)-> 
+          updateCalendar()
+          $scope.$apply() if not $scope.$$phase
+      
 
     $scope.deleteEmployee = (employee, index) -> 
       msg = "Are you sure?"
@@ -62,20 +67,22 @@
     $scope.editEmployee = (employee) ->
       $scope.newEmployeeMethod = 'update'
       $scope.newEmployee = angular.copy(employee)
+      $scope.newEmployeeWM_min = $scope.newEmployee.min_month
+      $scope.newEmployeeWM_max = $scope.newEmployee.max_month
 
-    $scope.saveNewEmployee = () ->
+    $scope.saveNewEmployee = (min, max) ->
       $scope.newEmployeeMethod = 'update' if $scope.newEmployeeMethod == 'update'
       
       Employee[$scope.newEmployeeMethod](id: $scope.newEmployee.id, employee: $scope.newEmployee)
       .$promise.then (employee)->
         if $scope.newEmployeeMethod == 'save'
-          saveWM($scope.newEmployeeWM, employee.id)
           $scope.employees.push employee
         else
           e = _.where($scope.employees, {id: employee.id})[0]
           index = $scope.employees.indexOf(e)
           $scope.employees[index] = employee
-        updateCalendar()
+
+        saveWM(min, max,employee.id)
         $scope.clearForm()
         
       #CLOSE modal

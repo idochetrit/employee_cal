@@ -15,10 +15,15 @@ class WorkmonthsController < ApplicationController
   # POST /workmonths
   # POST /workmonths.json
   def create
-    @workmonth = Workmonth.new(workmonth_params)
-    if @workmonth.save
-      respond_with @workmonth
+    startM = workmonth_params[:month_start]
+    endM = workmonth_params[:month_end]
+    @employee = Employee.find workmonth_params[:employee_id]
+    @employee.workmonths.delete_all
+    (startM..endM).to_a.each do |m|
+      @wm = @employee.workmonths.create(month: m)
     end
+
+    respond_with @wm
   end
 
   # PATCH/PUT /workmonths/1

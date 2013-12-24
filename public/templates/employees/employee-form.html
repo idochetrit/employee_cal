@@ -6,7 +6,7 @@
         <h4 class="modal-title">Employee Form</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" ng-submit="saveNewEmployee()" >
+        <form class="form-horizontal" ng-submit="saveNewEmployee(newEmployeeWM_min, newEmployeeWM_max)" >
           <input type="hidden" name="id" value="{{newEmployee.id}}" ng-model="newEmployee.id">
           <div class="form-group">
             <input type="text" class="form-control" name="name" ng-model="newEmployee.name" placeholder="Enter name" required>
@@ -23,16 +23,15 @@
               <option ng-repeat="g in grades" value="{{g.id}}">{{g.name}}</option>
             </select>
           </div>
-          <div class="only-new" ng-if="newEmployeeMethod=='save'">
-            <div class="form-group">
-              <label for="grade">Choose from month:</label>
-              <input type="number" max-length="2" min="1" max="12" class="form-control" name="from" ng-model="newEmployeeWM.from" required />
-            </div>            
-            <div class="form-group">
-              <label for="grade">Choose to month:</label>
-              <input type="number" max-length="2" min="1" max="12" class="form-control" name="to" ng-model="newEmployeeWM.to" required />
-            </div>
+
+
+          <!-- if its update option -->
+          <div class="workmonths-saves" >
+            <label>Choose work months range:</label>
+            <div range-slider min="monthMin" max="monthMax" model-min="newEmployeeWM_min" model-max="newEmployeeWM_max"></div>
           </div>
+          <!-- end update only -->
+
           <input type="submit" class="btn btn-primary" value="Save" ng-submit="saveNewEmployee()"/>
         </form>
       </div>

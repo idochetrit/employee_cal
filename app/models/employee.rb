@@ -15,6 +15,7 @@ class Employee < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options).merge(grade_str: self.grade_str, area_name: self.area.name)
+    super(options).merge(grade_str: self.grade_str, area_name: self.area.name,
+      min_month: self.workmonths.minimum(:month), max_month: self.workmonths.maximum(:month))
   end
 end
