@@ -3,10 +3,8 @@
     $scope.newEmployee = {}
     $scope.newEmployeeWM = {from: 1, to: 12}
 
-    $scope.monthMin = 1
-    $scope.monthMax = 12
-    $scope.newEmployeeWM_min = $scope.monthMin
-    $scope.newEmployeeWM_max = $scope.monthMax
+    $scope.newEmployeeWM_min = 1
+    $scope.newEmployeeWM_max = 12
     
 
 
@@ -34,6 +32,8 @@
       $scope.newEmployee = {}
       $scope.newEmployeeWM = {}
       $scope.newEmployeeMethod = 'save'
+      $scope.newEmployeeWM_min = 1
+      $scope.newEmployeeWM_max = 12
       $scope.$apply() if not $scope.$$phase
       $("#employeeModal").modal('hide')
       console.log 'form cleared...'
@@ -67,8 +67,9 @@
     $scope.editEmployee = (employee) ->
       $scope.newEmployeeMethod = 'update'
       $scope.newEmployee = angular.copy(employee)
-      $scope.newEmployeeWM_min = $scope.newEmployee.min_month
-      $scope.newEmployeeWM_max = $scope.newEmployee.max_month
+      $scope.newEmployeeWM_min = angular.copy(employee.min_month)
+      $scope.newEmployeeWM_max = angular.copy(employee.max_month)
+      $scope.$apply() if not $scope.$$phase
 
     $scope.saveNewEmployee = (min, max) ->
       $scope.newEmployeeMethod = 'update' if $scope.newEmployeeMethod == 'update'
@@ -76,6 +77,8 @@
       Employee[$scope.newEmployeeMethod](id: $scope.newEmployee.id, employee: $scope.newEmployee)
       .$promise.then (employee)->
         if $scope.newEmployeeMethod == 'save'
+          employee.min_month = min
+          employee.max_month = max
           $scope.employees.push employee
         else
           e = _.where($scope.employees, {id: employee.id})[0]

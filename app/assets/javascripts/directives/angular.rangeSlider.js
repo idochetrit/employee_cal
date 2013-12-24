@@ -20,7 +20,8 @@
      * @directive
      */
     angular.module('ui-rangeSlider', [])
-        .directive('rangeSlider', function($document, $filter, $log) {
+        .directive('rangeSlider',["$document", "$filter", "$log",
+         function($document, $filter, $log) {
 
         // test for mouse, pointer or touch
         var EVENT = window.navigator.msPointerEnabled ? 2 : 'ontouchend' in document ? 3 : 1,
@@ -416,5 +417,5 @@
 
             }
         };
-    });
+    }]);
 }());

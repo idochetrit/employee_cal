@@ -23,7 +23,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(employee_params)
 
     if @employee.save
-      respond_with @employee
+      render json: @employee
     end
   end
 
