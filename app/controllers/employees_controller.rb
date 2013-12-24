@@ -30,7 +30,8 @@ class EmployeesController < ApplicationController
   # PATCH/PUT /employees/1
   # PATCH/PUT /employees/1.json
   def update
-    respond_with @employee.update(employee_params)
+    @employee.update(employee_params)
+    render json: @employee.as_json
   end
 
   # DELETE /employees/1

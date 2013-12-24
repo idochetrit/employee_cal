@@ -1,0 +1,44 @@
+<h1 class="title">Employees</h1>
+    <input type="search" ng-model="filter.query" class="form-control" 
+      placeholder="Enter to search..." />
+    <div class="employees-table">
+
+      <table class="table sortable-theme-bootstrap tablesorter " >
+        <thead>
+          <tr>
+            <th data-sort="string">Name</th>
+            <th data-sort="int">Grade</th>
+            <th data-sort="string">Area</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="employee in employees | filter:filter.query">
+            <td>{{ employee.name }}</td>
+            <td data-sort-value="{{employee.grade}}">{{ employee.grade | gradeStr }}</td>
+            <td>{{ employee.area_name }}</td>
+            <td>
+              <button type="button" ng-click="setTempEmpId(employee.id)"
+                data-toggle="modal" data-target="#vacationModal">
+                  <i class="glyphicon glyphicon-tree-deciduous"></i>
+              </button>
+            </td>
+            <td>
+              <button type="button" ng-click="editEmployee(employee)" 
+                data-toggle="modal" data-target="#employeeModal"> <i class="glyphicon glyphicon-edit"></i>
+              </button>
+            </td>
+            <td>
+              <button type="button" ng-click="deleteEmployee(employee, $index)">
+                <i class="glyphicon glyphicon-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Button trigger employee modal -->
+    <button class="btn btn-primary btn-lg" ng-click="newEmployeeMethod='save'"
+      data-toggle="modal" data-target="#employeeModal">Add</button>

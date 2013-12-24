@@ -5,6 +5,8 @@
     $scope.newVacation = {}
     $scope.current_employee_id
 
+    $scope.newEmployeeMethod = 'save'
+
     $scope.areas_months = []
 
     $scope.employees = Employee.query()
@@ -19,6 +21,15 @@
     angular.element(document).ready ()->
       $(".employees-list table").stupidtable()
     
+
+    $scope.clearForm = ()->
+      $scope.newEmployee = {}
+      $scope.newEmployeeWM = {}
+      $scope.newEmployeeMethod = 'save'
+      $scope.$apply() if not $scope.$$phase
+      $("#employeeModal").modal('hide')
+      console.log 'form cleared...'
+
     updateCalendar = ()->
       Month.query (areaItems_months)->
         $scope.areas_months = areaItems_months
@@ -36,7 +47,10 @@
             month: m
             employee_id: emp_id
           ,
-          (wm)-> updateCalendar() if m == end
+          (wm)-> 
+            if m  == end-1
+              updateCalendar()
+              $scope.$apply() if not $scope.$$phase
 
     $scope.deleteEmployee = (employee, index) -> 
       msg = "Are you sure?"
@@ -47,25 +61,23 @@
 
     $scope.editEmployee = (employee) ->
       $scope.newEmployeeMethod = 'update'
-      $scope.newEmployee = employee
+      $scope.newEmployee = angular.copy(employee)
 
     $scope.saveNewEmployee = () ->
       $scope.newEmployeeMethod = 'update' if $scope.newEmployeeMethod == 'update'
       
       Employee[$scope.newEmployeeMethod](id: $scope.newEmployee.id, employee: $scope.newEmployee)
-      .success (o)->
+      .$promise.then (employee)->
         if $scope.newEmployeeMethod == 'save'
-          saveWM($scope.newEmployeeWM, o.id)
-          $scope.employees.push o
+          saveWM($scope.newEmployeeWM, employee.id)
+          $scope.employees.push employee
         else
-          # e = _.where($scope.employees, {id: o.employee.id})
-          # index = $scope.employees.indexOf(e)
-          # $scope.employees[index] = o.employee
-          updateEmpList()
+          e = _.where($scope.employees, {id: employee.id})[0]
+          index = $scope.employees.indexOf(e)
+          $scope.employees[index] = employee
         updateCalendar()
-        $scope.newEmployeeWM = {}
-
-      $scope.newEmployee = {}
+        $scope.clearForm()
+        
       #CLOSE modal
       $("#employeeModal").modal('hide')
       return
