@@ -1,8 +1,14 @@
 <div class="row-fluid area-item">
-  {{areaItem.area.name}} <i class="emps-sh circle">{{areaItem.sh_emps_count}}</i>
-  , <i class="emps-hi circle">{{areaItem.hi_emps_count}}</i>
+  <ul class="list-unstyled" ng-if="!show_employees">
+    <li ng-repeat="emp in areaItem.emps"> <i class="circle emps-{{emp.grade}}"></i>{{emp.name}} </li>
+  </ul>
+  <i ng-if="show_employees">{{areaItem.area.name}}</i>
+  <i class="emps-3 ">{{areaItem.sh_emps_count}}</i>
   ,
-  <i class="emps-md circle">{{areaItem.md_emps_count}}</i>
+  <i class="emps-2 ">{{areaItem.hi_emps_count}}</i>
+  <i ng-if="show_employees">,</i>
+  <i ng-if="!show_employees"><br /></i>
+  <i class="emps-1 ">{{areaItem.md_emps_count}}</i>
   ,
-  <i class="emps-lw circle">{{areaItem.lw_emps_count}}</i>
+  <i class="emps-0 ">{{areaItem.lw_emps_count}}</i>
 </div>

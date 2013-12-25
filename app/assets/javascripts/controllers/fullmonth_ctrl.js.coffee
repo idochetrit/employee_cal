@@ -19,12 +19,17 @@
         left: ''
         center: ''
         right: ''
-      events: (start, end, callback)-> callback($scope.currentAreaItem.workdays)
+      events: (start, end, callback)-> callback($scope.currentAreaItem.workdays) if $scope.currentAreaItem 
       droppable: true
       eventClick: (calEvent, jsEvent, view)->
-        cal = $('#cal-workdays').fullCalendar('removeEvents', calEvent._id)
+        
+        # send rest delete to the server
         Workday.delete({id: calEvent.wd_id})
-        cal.fullCalendar("rerenderEvents")
+
+        # remove from local array and refetch the events for fullCalendar
+        $scope.currentAreaItem.workdays.splice($scope.currentAreaItem.workdays.indexOf(calEvent), 1)
+        $('#cal-workdays').fullCalendar("refetchEvents")
+        
         alert("Workday removed!")
       drop: (date, allDay)->
       

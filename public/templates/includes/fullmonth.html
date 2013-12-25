@@ -30,9 +30,10 @@
           </thead>
           <tbody>
             <tr ng-repeat="emp in areaItem.emps" >
-              <td data-drag="true" jqyoui-draggable="{animate:true}" class="month-employee"  jqyoui-options="{revert: true, revertDuration: 0, zIndex: 999}"  
+              <td data-drag="true" jqyoui-draggable="{animate:true}" class="month-employee"  
+                jqyoui-options="{revert: true, revertDuration: 0, zIndex: 999}"  
                     data-emp-obj="{{ 
-                      {title: emp.name+' - '+areaItem.area.name+' x', 
+                      {title: emp.name+'  [X]', 
                       employee_id: emp.id, 
                       className: 'g'+emp.grade+'-event',
                       area_id: areaItem.area.id} }}">{{emp.name}}</td>

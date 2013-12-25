@@ -3,7 +3,7 @@
 </button>
 
 <div class="row-fluid" ng-init="init()">
-  <div class="col-md-4 employees-list" ng-show="show_employees">
+  <div class="col-md-3 employees-list" ng-show="show_employees">
 
     <div ng-include="'/templates/employees/employee-form.html'" ></div>
     <div ng-include="'/templates/employees/assign-vacation-form.html'" ></div>
@@ -15,7 +15,7 @@
 
   </div>
   <!-- Calendar Preview Year -->
-  <div id="calContent" ng-class="(show_employees) ? 'col-md-8':'col-md-12' " ng-model="cal" >
+  <div id="calContent" ng-class="(show_employees) ? 'col-md-9':'col-md-12' " ng-model="cal" >
     <div class="innerCalContent" >
       <div class="well col-md-3 month-preview" data-month="{{month}}" 
                 ng-click="openFullMonth(month)" ng-repeat="month in months">

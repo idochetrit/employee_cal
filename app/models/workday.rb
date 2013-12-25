@@ -4,7 +4,7 @@ class Workday < ActiveRecord::Base
   delegate :area_id, to: :employee
 
   def title
-    "#{self.employee.name} - #{self.employee.area.name} x"
+    "#{self.employee.name}  [X]"
   end
 
   def className

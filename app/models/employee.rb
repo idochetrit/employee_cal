@@ -5,6 +5,8 @@ class Employee < ActiveRecord::Base
 
   validates :name, :area_id, :grade, presence: true
 
+  default_scope  { order(:grade) }
+
   def grade_str
     case self.grade
       when 0 then 'Low (> 500)'

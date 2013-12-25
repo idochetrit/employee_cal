@@ -15,6 +15,7 @@ class Area < ActiveRecord::Base
     return { areaItems: all.map do |a| 
       emps = current_month.employees_by_area(a, deep ? nil : false)
       hash = { area: a, 
+        emps: emps.as_json, 
         sh_emps_count:  emps.select {|e| e.grade == 3}.size,
         hi_emps_count:  emps.select {|e| e.grade == 2}.size,
         md_emps_count:  emps.select {|e| e.grade == 1}.size,
@@ -22,7 +23,7 @@ class Area < ActiveRecord::Base
       }
       if deep
         hash.merge!({ 
-          emps: emps.as_json, 
+          
           workdays: current_month.workdays_by_area(a),
           vacations: current_month.vacations
         })

@@ -1,6 +1,22 @@
-<h3>{{ getMonthName(month) }}</h3>
-<ul class="list-unstyled">
-  <li ng-repeat="areaItem in getAreaItem(month)">
-    <div ng-include="'/templates/includes/count-dotes-list.html'"></div>
-  </li>
-</ul>
+<h4>{{ getMonthName(month) }}</h4>
+<div ng-if="show_employees">
+  <ul class="list-unstyled">
+    <li ng-repeat="areaItem in getAreaItem(month)">
+      <div ng-include="'/templates/includes/count-dotes-list.html'"></div>
+    </li>
+  </ul>
+</div>
+<div ng-if="!show_employees">
+  <table class="table preview-areas">
+    <thead>
+      <th ng-repeat="areaItem in getAreaItem(month)">{{areaItem.area.name}}</th>
+    </thead>
+    <tbody>
+      <tr >
+        <td ng-repeat="areaItem in getAreaItem(month)">
+          <div ng-include="'/templates/includes/count-dotes-list.html'"></div>
+        </td>  
+      </tr>
+    </tbody>
+  </table>
+</div>

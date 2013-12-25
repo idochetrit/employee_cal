@@ -2,16 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.emps-sh {
+.emps-3 {
   color: #0099c7;
 }
-.emps-hi {
+.emps-2 {
   color: #70bf44;
 }
-.emps-md {
+.emps-1 {
   color: #f58052;
 }
-.emps-lw {
+.emps-0 {
   color: #a94442;
 }
 .vacation {
@@ -25,14 +25,19 @@
 
 .circle:before {
   content: '\25CF';
-  font-size: 1.1em;
+  font-size: 0.8em;
 }
 .area-item {
-  font-size: 1.1em;
+  font-size: 1.0em;
 }
 
 .month-preview {
   padding: 10px !important;
+}
+
+.preview-areas th {
+  // font-weight: normal;
+  font-size: 0.9em;
 }
 
 .full-month {
