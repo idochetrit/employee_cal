@@ -33,11 +33,19 @@
 
 .month-preview {
   padding: 10px !important;
+  min-height: 275px;
 }
 
-.preview-areas th {
-  // font-weight: normal;
-  font-size: 0.9em;
+.preview-areas {
+  th, li {
+    font-size: 0.75em;
+  }
+  ul {
+    max-height: 80px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 120%;
+  }
 }
 
 .full-month {
